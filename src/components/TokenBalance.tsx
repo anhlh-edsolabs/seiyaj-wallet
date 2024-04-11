@@ -1,5 +1,4 @@
 import { Group, Text } from "@mantine/core";
-import React from "react";
 import { useBalance } from "wagmi";
 
 function TokenBalance({
