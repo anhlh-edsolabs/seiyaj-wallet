@@ -2,9 +2,16 @@ import { Group, Text } from "@mantine/core";
 import React from "react";
 import { useBalance } from "wagmi";
 
-function NativeBalance({ address }: { address: `0x${string}` }) {
+function TokenBalance({
+	address,
+	token,
+}: {
+	address: `0x${string}`;
+	token?: `0x${string}`;
+}) {
 	const balance = useBalance({
 		address: address,
+		token: token,
 	});
 	console.log(balance);
 	return (
@@ -19,4 +26,4 @@ function NativeBalance({ address }: { address: `0x${string}` }) {
 	);
 }
 
-export default NativeBalance;
+export default TokenBalance;

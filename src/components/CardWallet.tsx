@@ -5,20 +5,19 @@ import {
 	Stack,
 	Button,
 	Group,
-	Image,
 	Avatar,
 	Title,
 } from "@mantine/core";
 import { IconCheck, IconCopy, IconWallet } from "@tabler/icons-react";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
-import { useAccount, useBalance } from "wagmi";
-import NativeBalance from "./NativeBalance";
+import { useAccount } from "wagmi";
+import TokenBalance from "./TokenBalance";
 
 function CardWallet() {
 	const { open: openConnection } = useWeb3Modal();
-	const { address, isConnecting, isDisconnected, status } = useAccount();
-	
-    return (
+	const { address, status } = useAccount();
+
+	return (
 		<Card shadow="sm" padding="lg" radius="md" withBorder>
 			<Stack>
 				<Group>
@@ -68,7 +67,7 @@ function CardWallet() {
 								)}
 							</CopyButton>
 						</Group>
-						<NativeBalance address={address}/>
+						<TokenBalance address={address} />
 					</Stack>
 				)}
 				{status === "disconnected" && (
@@ -90,5 +89,3 @@ function CardWallet() {
 }
 
 export default CardWallet;
-
-
