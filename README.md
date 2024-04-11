@@ -93,4 +93,4 @@ The project is structured as follows:
 ## Author
 
 Le Hoang Anh
-mr.khas@gmail.com
+<mr.khas@gmail.com>
