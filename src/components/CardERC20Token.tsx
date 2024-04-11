@@ -1,4 +1,4 @@
-import { Card, Stack, Group } from "@mantine/core";
+import { Card, Stack, Group, Title } from "@mantine/core";
 import { useAccount } from "wagmi";
 import TokenBalance from "./TokenBalance";
 import ButtonTransfer from "./buttons/ButtonTransfer";
@@ -12,6 +12,9 @@ function CardERC20Token() {
 	return (
 		<Card shadow="sm" padding="lg" radius="md" withBorder>
 			<Stack>
+                <Group>
+                    <Title order={3}>Seiyaj Token</Title>
+                </Group>
 				{status === "connected" && (
 					<TokenBalance address={address} token={token} />
 				)}

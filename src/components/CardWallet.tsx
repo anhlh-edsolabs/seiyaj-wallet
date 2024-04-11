@@ -43,7 +43,7 @@ function CardWallet() {
 						<Group>
 							<Text>
 								Address:{" "}
-								<Text span size="sm" color="gray.8">
+								<Text span size="sm" fw="bold" color="gray.8">
 									{address}
 								</Text>
 							</Text>

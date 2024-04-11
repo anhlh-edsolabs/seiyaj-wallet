@@ -1,8 +1,18 @@
-import { TextInput, Text, Button, Group, Box, Stack } from "@mantine/core";
+import {
+    TextInput,
+    Text,
+    Button,
+    Group,
+    Box,
+    Stack,
+    Center,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { ethers } from "ethers";
 import TOKEN_ABI from "../../common/abis/SeiyajToken_ABI.json";
 import { useState } from "react";
+import { sepolia } from "wagmi/chains";
+import { IconCircleArrowRightFilled, IconTransitionRightFilled } from "@tabler/icons-react";
 
 const TOKEN = import.meta.env.VITE_SEIYAJ_TOKEN_ADDRESS!;
 
@@ -11,13 +21,15 @@ type TransferForm = {
 	amount: string;
 };
 
-type Props = {
-	onClose?: () => void;
-};
+// type Props = {
+// 	onClose?: () => void;
+// };
 
-function ModalTransfer({ onClose }: Props) {
+function ModalTransfer() {
 	const [loading, setLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+	const [step, setStep] = useState(0);
+	const [urlTxHash, setUrlTxHash] = useState<string | null>(null);
 
 	const form = useForm<TransferForm>({
 		initialValues: {
@@ -43,14 +55,19 @@ function ModalTransfer({ onClose }: Props) {
 				values.recipient,
 				ethers.parseEther(values.amount),
 			);
-			console.log("Transaction:", txn);
+			await txn.wait();
 
-			return onClose?.();
+			console.log("Transaction:", txn);
+			setUrlTxHash(
+				`${sepolia.blockExplorers.default.url}/tx/${txn.hash}`,
+			);
+
+			return setStep(1);
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			console.log("Error:", error);
-            
-            const code = error.data.replace("Reverted ", "");
+
+			const code = error.data.replace("Reverted ", "");
 			const reason = ethers.toUtf8String("0x" + code.substr(138));
 			console.log("revert reason:", reason);
 
@@ -62,34 +79,54 @@ function ModalTransfer({ onClose }: Props) {
 
 	return (
 		<Box px="sm">
-			<form onSubmit={form.onSubmit(handleSubmit)}>
-				<Stack>
-					{errorMessage && (
-						<Text fz="sm" color="red">
-							{errorMessage}
-						</Text>
-					)}
-					<TextInput
-						withAsterisk
-						label="Recipient address"
-						placeholder="0x"
-						{...form.getInputProps("recipient")}
-					/>
-					<TextInput
-						withAsterisk
-						label="Amount"
-						placeholder="0"
-						type="number"
-						{...form.getInputProps("amount")}
-					/>
+			{step === 0 && (
+				<form onSubmit={form.onSubmit(handleSubmit)}>
+					<Stack>
+						{errorMessage && (
+							<Text fz="sm" color="red">
+								{errorMessage}
+							</Text>
+						)}
+						<TextInput
+							withAsterisk
+							label="Recipient address"
+							placeholder="0x"
+							{...form.getInputProps("recipient")}
+						/>
+						<TextInput
+							withAsterisk
+							label="Amount"
+							placeholder="0"
+							type="number"
+							{...form.getInputProps("amount")}
+						/>
 
-					<Group position="right" mt="md">
-						<Button loading={loading} type="submit">
-							Submit
-						</Button>
-					</Group>
-				</Stack>
-			</form>
+						<Group position="right" mt="md">
+							<Button
+                                rightIcon={<IconCircleArrowRightFilled size="1rem" />}
+								loading={loading}
+								type="submit"
+								color="dark"
+								variant="filled"
+							>
+								Submit
+							</Button>
+						</Group>
+					</Stack>
+				</form>
+			)}
+			{step === 1 && (
+				<Center h={100} mx="auto">
+					<Button
+                        rightIcon={<IconTransitionRightFilled size="1rem" />}
+						onClick={() => window.open(`${urlTxHash}`)}
+						variant="subtle"
+                        color="dark"
+					>
+						View on block explorer
+					</Button>
+				</Center>
+			)}
 		</Box>
 	);
 }

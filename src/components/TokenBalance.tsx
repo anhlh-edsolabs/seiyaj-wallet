@@ -1,4 +1,4 @@
-import { Group, Text } from "@mantine/core";
+import { Stack, Text } from "@mantine/core";
 import { useBalance } from "wagmi";
 
 function TokenBalance({
@@ -14,14 +14,20 @@ function TokenBalance({
 	});
 	console.log(balance);
 	return (
-		<Group>
+		<Stack>
+			<Text>
+				Contract Address:{" "}
+				<Text span size="sm" fw="bold" color="gray.8">
+					{token}
+				</Text>
+			</Text>
 			<Text>
 				Balance:{" "}
-				<Text span size="sm" color="gray.8">
+				<Text span size="sm" fw="bold" color="gray.8">
 					{balance.data?.formatted} {balance.data?.symbol}
 				</Text>
 			</Text>
-		</Group>
+		</Stack>
 	);
 }
 

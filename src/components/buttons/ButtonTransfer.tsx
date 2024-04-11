@@ -12,7 +12,7 @@ function ButtonTransfer() {
 				onClose={close}
 				title={<Title order={3}>Transfer token</Title>}
 			>
-				<ModalTransfer onClose={close} />
+				<ModalTransfer />
 			</Modal>
 			<Button
 				leftIcon={<IconWallet size="1rem" />}
