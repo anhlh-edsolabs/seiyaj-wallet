@@ -44,7 +44,6 @@ yarn build
 
 The project is deployed to Vercel at [https://seiyaj-wallet.vercel.app/](https://seiyaj-wallet.vercel.app/).
 
-
 ## Components
 
 The project is structured as follows:
