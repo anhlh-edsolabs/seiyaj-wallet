@@ -44,6 +44,21 @@ yarn build
 
 The project is deployed to Vercel at [https://seiyaj-wallet.vercel.app/](https://seiyaj-wallet.vercel.app/).
 
+To test the app, import the wallet with the private key below to MetaMask, connect the wallet to the app and switch to `sepolia` testnet. It already has 1.000.000 SYT (SeiyajToken) and ~0.1 ETH for paying transaction fee.
+
+- Wallet address:
+
+```sh
+0xb265c26f9d78bF819B35F95A340D164bdC1DbCDA
+```
+
+- Private key:
+
+```sh
+0x9811ed93a00af4890c6d82f71205eeaa5f50ca13e67ff04a861350faf682cff7
+```
+
+
 ## Components
 
 The project is structured as follows:
