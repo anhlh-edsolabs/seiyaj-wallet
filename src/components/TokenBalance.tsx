@@ -13,14 +13,9 @@ function TokenBalance({
 		token: token,
 	});
 	console.log(balance);
+	console.log(token);
 	return (
 		<Stack>
-			<Text>
-				Contract Address:{" "}
-				<Text span size="sm" fw="bold" color="gray.8">
-					{token}
-				</Text>
-			</Text>
 			<Text>
 				Balance:{" "}
 				<Text span size="sm" fw="bold" color="gray.8">
