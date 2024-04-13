@@ -4,8 +4,6 @@ import TokenBalance from "./TokenBalance";
 import ButtonTransfer from "./buttons/ButtonTransfer";
 import { sepolia } from "wagmi/chains";
 import { IconTransitionRightFilled } from "@tabler/icons-react";
-import ButtonMint from "./buttons/ButtonMint";
-import ButtonWhitelist from "./buttons/ButtonWhitelist";
 
 const token = import.meta.env.VITE_SEIYAJ_TOKEN_ADDRESS!;
 
